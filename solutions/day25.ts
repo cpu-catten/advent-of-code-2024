@@ -1,14 +1,5 @@
 import fs from "node:fs";
 
-function processRawItems(rawItems: string[][]): number[][] {
-  return rawItems
-    .map((key) =>
-      key.map((pin) => pin.split("").map((space) => (space === "." ? 0 : 1)))
-    )
-    .map((key) => key[0].map((_, i) => key.map((row) => row[i])))
-    .map((key) => key.map((row) => row[1] + row[2] + row[3] + row[4] + row[5]));
-}
-
 const raw = fs.readFileSync("./input.txt", "utf-8");
 const { rawKeys, rawLocks } = raw
   .split("\n\n")
@@ -24,6 +15,15 @@ const { rawKeys, rawLocks } = raw
     },
     { rawKeys: [], rawLocks: [] }
   );
+
+function processRawItems(rawItems: string[][]): number[][] {
+  return rawItems
+    .map((key) =>
+      key.map((pin) => pin.split("").map((space) => (space === "." ? 0 : 1)))
+    )
+    .map((key) => key[0].map((_, i) => key.map((row) => row[i])))
+    .map((key) => key.map((row) => row[1] + row[2] + row[3] + row[4] + row[5]));
+}
 const locks = processRawItems(rawLocks);
 const keys = processRawItems(rawKeys);
 // console.log(locks, keys);
