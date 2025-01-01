@@ -1,6 +1,6 @@
-with open("./input.txt", "r") as inp:
-  wli: str = inp.read().rstrip()
-  inp.close()
+with open("./input.txt", "r") as txt:
+  wli: str = txt.read().rstrip()
+  txt.close()
 
 warehouse, movements = wli.split('\n\n')
 warehouse = [list(row) for row in warehouse.split('\n')]

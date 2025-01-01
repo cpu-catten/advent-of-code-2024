@@ -1,6 +1,6 @@
-with open("./input.txt", "r") as inp:
-  sto: str = inp.read().rstrip()
-  inp.close()
+with open("./input.txt", "r") as txt:
+  sto: str = txt.read().rstrip()
+  txt.close()
 
 stones = list(map(int, sto.split(' ')))
 print(stones)

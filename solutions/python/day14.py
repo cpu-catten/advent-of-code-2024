@@ -6,7 +6,7 @@ robots = list(map(list, zip(*[robot.split(' ') for robot in rob.split('\n')])))
 locations = [list(map(int, location.split('=')[-1].split(','))) for location in robots[0]]
 velocities = [list(map(int, velocity.split('=')[-1].split(','))) for velocity in robots[1]]
 
-def multiplyQuadrants(locations: int, width: int, height: int) -> int:
+def multiplyQuadrants(locations: list[list[int]], width: int, height: int) -> int:
     width //= 2
     height //= 2
     quadrant = [0] * 4
@@ -22,7 +22,7 @@ def multiplyQuadrants(locations: int, width: int, height: int) -> int:
     # print(quadrant)
     return quadrant[0] * quadrant[1] * quadrant[2] * quadrant[3]
 
-def getLocationsDisplay(locations: int, width: int, height: int) -> str:
+def getLocationsDisplay(locations: list[list[int]], width: int, height: int) -> str:
     grid = [['.'] * width for _ in range(height)]
     for location in locations:
         grid[location[1]][location[0]] = '#'
