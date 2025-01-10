@@ -28,7 +28,6 @@ function compactDiskPart1(diskMap: number[]): number[] {
     if (disk.indexOf(-1) === -1) return disk;
     const index = disk.indexOf(-1);
     disk[index] = disk.pop()!;
-    // console.log(index);
   }
 }
 const compactedDiskPart1 = compactDiskPart1(disk);
@@ -40,57 +39,37 @@ function compactDiskPart2(diskMap: number[]): number[] {
   const disk = [...diskMap];
   let index = disk.length - 1;
   while (index >= 0) {
-    // console.log(index);
     if (disk[index] === -1) {
       index--;
-      // console.log("skipping: -1");
       continue;
-    }
+    } // Skip empty spaces
     const startOfFile = disk.indexOf(disk[index]);
     const lengthOfFile = index - startOfFile + 1;
     let startOfEmptySpace = disk.indexOf(-1);
-    if (startOfEmptySpace === -1) break;
-    // console.log("finding empty space");
+    if (startOfEmptySpace === -1) break; // No more empty spaces
     const diskWithoutSkippedData = disk.slice(0, index + 1);
-    while (
-      // disk
-      //   .slice(0, index + 1)
-      //   .slice(startOfEmptySpace, startOfEmptySpace + lengthOfFile)
-      //   .toString() !==
-      //   Array.from({ length: lengthOfFile }).fill(-1).toString() &&
-      startOfEmptySpace !== -1
-    ) {
+    while (startOfEmptySpace !== -1) {
       let unfittingEmptySpace = -1;
       for (let i = 0; i < lengthOfFile; i++) {
         if (diskWithoutSkippedData[startOfEmptySpace + i] !== -1) {
           unfittingEmptySpace = startOfEmptySpace + i;
-          break;
+          break; // Found unfitting empty space
         }
-      }
-      if (unfittingEmptySpace === -1) break;
+      } // Check if empty space is large enough
+      if (unfittingEmptySpace === -1) break; // Found a fitting empty space
       startOfEmptySpace = diskWithoutSkippedData.indexOf(
         -1,
         unfittingEmptySpace
-      );
+      ); // Find next empty space starting from last unfitting empty space
     }
     if (startOfEmptySpace !== -1) {
-      // console.log("moving files");
+      // Found a fitting empty space
       for (let i = 0; i < lengthOfFile; i++) {
         const temp = disk[startOfEmptySpace + i];
         disk[startOfEmptySpace + i] = disk[startOfFile + i];
         disk[startOfFile + i] = temp;
-      }
+      } // Swap data with empty space
     }
-    // disk.splice(
-    //   startOfEmptySpace,
-    //   lengthOfFile,
-    //   ...disk.slice(startOfFile, index + 1)
-    // );
-    // disk.splice(
-    //   startOfFile,
-    //   lengthOfFile,
-    //   ...Array.from<number>({ length: lengthOfFile }).fill(-1)
-    // );
     index -= lengthOfFile;
   }
   return disk;
@@ -98,46 +77,3 @@ function compactDiskPart2(diskMap: number[]): number[] {
 const compactedDiskPart2 = compactDiskPart2(disk);
 const checksumPart2 = getDiskChecksum(compactedDiskPart2);
 console.log("Part 2:", checksumPart2);
-
-// function compactDiskPart2(diskMap: number[]): number[] {
-//   const disk = [...diskMap];
-//   const largeFiles: number[] = [];
-//   while (true) {
-//     if (disk[disk.length - 1] === -1) {
-//       while (disk[disk.length - 1] === -1) largeFiles.push(disk.pop()!);
-//     }
-//     if (disk.indexOf(-1) === -1) {
-//       if (disk[disk.length - 1] === -1) {
-//         while (disk[disk.length - 1] === -1) disk.pop();
-//       }
-//       return disk;
-//     }
-//     const eof = disk[disk.length - 1];
-//     let lengthOfFile = 0;
-//     while (disk[disk.length - 1 - lengthOfFile] === eof) {
-//       lengthOfFile++;
-//     }
-//     const index = disk
-//       .toString()
-//       .replaceAll(",", "")
-//       .replaceAll("-1", "A")
-//       .indexOf("A".repeat(lengthOfFile));
-
-//     if (index === -1) {
-//       for (let i = 0; i < lengthOfFile; i++) {
-//         largeFiles.push(disk.pop()!);
-//       }
-//       // continue;
-//     } else {
-//       for (let i = 0; i < lengthOfFile; i++) {
-//         disk[index + i] = disk.pop()!;
-//         largeFiles.push(-1);
-//       }
-//     }
-//     // console.log(
-//     //   disk.toString().replaceAll(",", "").replaceAll("-1", "A"),
-//     //   largeFiles.toString().replaceAll(",", "").replaceAll("-1", "A"),
-//     //   index
-//     // );
-//   }
-// }

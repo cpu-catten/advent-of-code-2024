@@ -8,7 +8,6 @@ const map = raw.split("\n").map((line) => line.split(""));
 //     console.log(line.join(""));
 //   });
 // }
-// displayMap(map);
 
 const antinodesPart1: string[][] = Array.from({ length: map.length }, () =>
   Array.from({ length: map[0].length }, () => ".")
@@ -25,7 +24,6 @@ map.forEach((line, y) => {
           if (cell2 === cell && x !== x2 && y !== y2) {
             const dx = x2 - x;
             const dy = y2 - y;
-            // console.log(y, x, y2, x2, map[y2][x2], dy, dx);
 
             // Part 1
             if (
@@ -55,14 +53,12 @@ map.forEach((line, y) => {
     }
   });
 });
-// displayMap(antinodesPart2);
 
 const antinodeCountPart1 = antinodesPart1.reduce(
   (acc, line) => acc + line.filter((cell) => cell === "#").length,
   0
 );
 console.log("Part 1:", antinodeCountPart1);
-
 const antinodeCountPart2 = antinodesPart2.reduce(
   (acc, line, y) =>
     acc + line.filter((cell, x) => cell !== "." || map[y][x] !== ".").length,

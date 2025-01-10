@@ -13,7 +13,7 @@ const linearEquations = machines.map((machine) =>
   machine[0].map((_, colIndex) => machine.map((row) => row[colIndex]))
 );
 
-function solveLinearEquationInTwoUnknowns(equations: number[][]): {
+function solveLinearEquation(equations: number[][]): {
   x: number;
   y: number;
   isReachable: boolean;
@@ -32,7 +32,7 @@ function solveLinearEquationInTwoUnknowns(equations: number[][]): {
 
 // Part 1
 const resultsPart1 = linearEquations.reduce((acc, equations) => {
-  const result = solveLinearEquationInTwoUnknowns(equations);
+  const result = solveLinearEquation(equations);
   return result.isReachable ? acc + result.x * 3 + result.y : acc;
 }, 0);
 console.log("Part 1:", resultsPart1);
@@ -43,7 +43,7 @@ const resultsPart2 = linearEquations.reduce((acc, equations) => {
     ...equation.slice(0, 2),
     equation[2] + 10000000000000,
   ]);
-  const result = solveLinearEquationInTwoUnknowns(newEquations);
+  const result = solveLinearEquation(newEquations);
   return result.isReachable ? acc + result.x * 3 + result.y : acc;
 }, 0);
 console.log("Part 2:", resultsPart2);

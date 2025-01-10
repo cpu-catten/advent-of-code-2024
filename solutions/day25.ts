@@ -26,7 +26,6 @@ function processRawItems(rawItems: string[][]): number[][] {
 }
 const locks = processRawItems(rawLocks);
 const keys = processRawItems(rawKeys);
-// console.log(locks, keys);
 
 function lockMatchesKey(lock: number[], key: number[]): boolean {
   const compare = lock.map((column, i) => column + key[i] <= 5);
@@ -39,7 +38,6 @@ function lockMatchesKey(lock: number[], key: number[]): boolean {
 const result = locks.reduce((acc, lock) => {
   for (let i = 0; i < keys.length; i++) {
     if (lockMatchesKey(lock, keys[i])) {
-      //   console.log(i, j);
       acc++;
     }
   }

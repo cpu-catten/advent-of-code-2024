@@ -61,8 +61,6 @@ function moveRobot(map: string[][], movements: string[]): void {
       x += dx;
       y += dy;
     }
-    // console.log(movement, x, y, movable);
-    // displayWarehouse(map);
   }
 }
 

@@ -28,7 +28,6 @@ function multiplyQuadrants(
     },
     [0, 0, 0, 0]
   );
-  //   console.log(quadrants);
   return quadrants.reduce((acc, quadrant) => acc * quadrant, 1);
 }
 

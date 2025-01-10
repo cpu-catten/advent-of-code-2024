@@ -1,12 +1,14 @@
 import fs from "node:fs";
 
 const raw = fs.readFileSync("./input.txt", "utf-8");
-const rawData = raw.split("\n\n").map((data) => data.split("\n"));
-const rules = rawData[0].map((rule) => rule.split("|"));
-const pages = rawData[1].map((page) => page.split(","));
+const [rules, pages] = raw
+  .split("\n\n")
+  .map((data) =>
+    data.split("\n").map((item) => item.replaceAll(",", "|").split("|"))
+  );
 
 // Part 1
-function pageIsValid(page: string[]): boolean {
+function isValidPage(page: string[]): boolean {
   for (const rule of rules) {
     if (
       page.includes(rule[1]) &&
@@ -19,21 +21,22 @@ function pageIsValid(page: string[]): boolean {
 }
 
 // Part 2
-function fixPage(page: string[]): string[] {
+function getFixedPage(page: string[]): string[] {
+  const fixedPage = [...page];
   for (let i = 0; i < rules.length - 0; i++) {
     for (const rule of rules.slice(i)) {
-      if (page.includes(rule[0]) && page.includes(rule[1])) {
-        const pageIndex0 = page.indexOf(rule[0]);
-        const pageIndex1 = page.indexOf(rule[1]);
+      if (fixedPage.includes(rule[0]) && fixedPage.includes(rule[1])) {
+        const pageIndex0 = fixedPage.indexOf(rule[0]);
+        const pageIndex1 = fixedPage.indexOf(rule[1]);
         if (pageIndex0 > pageIndex1) {
-          const temp = page[pageIndex0];
-          page[pageIndex0] = page[pageIndex1];
-          page[pageIndex1] = temp;
+          const temp = fixedPage[pageIndex0];
+          fixedPage[pageIndex0] = fixedPage[pageIndex1];
+          fixedPage[pageIndex1] = temp;
         }
       }
     }
   }
-  return page;
+  return fixedPage;
 }
 
 const { validPages, fixedPages } = pages.reduce<{
@@ -41,10 +44,10 @@ const { validPages, fixedPages } = pages.reduce<{
   fixedPages: string[][];
 }>(
   (acc, page) => {
-    if (pageIsValid(page)) {
+    if (isValidPage(page)) {
       acc.validPages.push(page);
     } else {
-      acc.fixedPages.push(fixPage(page));
+      acc.fixedPages.push(getFixedPage(page));
     }
     return acc;
   },

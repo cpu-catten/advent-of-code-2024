@@ -7,7 +7,6 @@ const connections = raw
     connection.split("-").toSorted((a, b) => a.localeCompare(b))
   )
   .toSorted((a, b) => a[0].localeCompare(b[0]));
-// console.log(connections);
 
 const tripleComputerSets: string[][] = [];
 connections.forEach((connection) => {
@@ -23,12 +22,10 @@ connections.forEach((connection) => {
           connection[1],
           connections[i][1],
         ]);
-        // console.log(tripleComputerSets[tripleComputerSets.length - 1]);
       }
     }
   }
 });
-// console.log(tripleComputerSets.length);
 
 function getComputerConnections(
   computerRegex: RegExp,
@@ -41,17 +38,14 @@ function getComputerConnections(
         computerRegex.test(connection[0]),
         computerRegex.test(connection[1]),
         computerRegex.test(connection[2]),
-      ].indexOf(true) !== -1
+      ].some(Boolean)
     ) {
       computerConnections.push(connection);
-      //   console.log(computerConnections[computerConnections.length - 1]);
     }
   }
   return computerConnections;
 }
 
-const computerConnections = getComputerConnections(
-  /^t[a-z]{1}$/g,
-  tripleComputerSets
-);
+const regex = /^t[a-z]{1}$/g;
+const computerConnections = getComputerConnections(regex, tripleComputerSets);
 console.log(computerConnections.length);

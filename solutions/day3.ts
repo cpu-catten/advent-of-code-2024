@@ -4,9 +4,10 @@ const raw = fs.readFileSync("./input.txt", "utf-8");
 
 // Part 1
 const regexPart1 = /mul\(([0-9]+),([0-9]+)\)/g;
-const sumPart1 = [...raw.matchAll(regexPart1)]
-  .map((match) => parseInt(match[1]) * parseInt(match[2]))
-  .reduce((acc, curr) => acc + curr, 0);
+const sumPart1 = [...raw.matchAll(regexPart1)].reduce(
+  (acc, match) => acc + parseInt(match[1]) * parseInt(match[2]),
+  0
+);
 console.log("Part 1:", sumPart1);
 
 // Part 2

@@ -17,9 +17,7 @@ function searchKeywordPart1(keyword: string, puzzle: string[]): number {
         puzzle[i + 2][j] === keyword[2],
         puzzle[i + 3][j] === keyword[3],
       ];
-      if (conditions.every((condition) => condition)) {
-        count++;
-      }
+      if (conditions.every(Boolean)) count++;
     }
   }
 
@@ -31,9 +29,7 @@ function searchKeywordPart1(keyword: string, puzzle: string[]): number {
         puzzle[i + 2][j + 2] === keyword[2],
         puzzle[i + 3][j + 3] === keyword[3],
       ];
-      if (conditions.every((condition) => condition)) {
-        count++;
-      }
+      if (conditions.every(Boolean)) count++;
     }
   }
 
@@ -45,9 +41,7 @@ function searchKeywordPart1(keyword: string, puzzle: string[]): number {
         puzzle[i + 2][j - 2] === keyword[2],
         puzzle[i + 3][j - 3] === keyword[3],
       ];
-      if (conditions.every((condition) => condition)) {
-        count++;
-      }
+      if (conditions.every(Boolean)) count++;
     }
   }
   return count;
@@ -69,9 +63,7 @@ function searchKeywordPart2(keyword: string, puzzle: string[]): number {
         puzzle[i][j + 2] === keyword[2],
         puzzle[i + 2][j + 2] === keyword[2],
       ];
-      if (conditions.every((condition) => condition)) {
-        count++;
-      }
+      if (conditions.every(Boolean)) count++;
     }
   }
 
@@ -84,9 +76,7 @@ function searchKeywordPart2(keyword: string, puzzle: string[]): number {
         puzzle[i + 2][j] === keyword[2],
         puzzle[i + 2][j + 2] === keyword[2],
       ];
-      if (conditions.every((condition) => condition)) {
-        count++;
-      }
+      if (conditions.every(Boolean)) count++;
     }
   }
   return count;

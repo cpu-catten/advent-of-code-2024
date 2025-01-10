@@ -5,12 +5,6 @@ const raw = fs.readFileSync("./input.txt", "utf-8");
 const stones = raw.split(" ").map(Number);
 
 function splitStone(stone: number): number[] {
-  // const stringifiedStone = stone.toString();
-  // const midIndex = stringifiedStone.length / 2;
-  //   console.log(
-  //     "setting",
-  //     Array.from(stonesMap.set(stone, splittedStone)).pop()
-  //   );
   const denominator = 10 ** ((Math.floor(Math.log10(stone)) - 1) / 2 + 1);
   const firstHalf = Math.floor(stone / denominator);
   const secondHalf = stone % denominator;
@@ -25,7 +19,6 @@ function iterateStones(
   iterationLeft: number,
   stonesMap: LRUCache<number, number[]> = new LRUCache(options)
 ): number[] {
-  // console.log("iteration", iterationLeft);
   if (iterationLeft === 0) return stones;
   const newStones = stones.flatMap((stone) => {
     if (stone === 0) {

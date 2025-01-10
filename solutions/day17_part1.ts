@@ -6,7 +6,6 @@ const registers = device[0].map((register) =>
   parseInt(register.split(": ").pop()!)
 );
 const program = device[1][0].split(": ").pop()!.split(",").map(Number);
-// console.log(registers, program);
 
 function getComboOperand(operand: number, registers: number[]): number {
   return operand < 4 ? operand : registers[operand - 4];
@@ -17,11 +16,9 @@ let acc: { newRegisters: number[]; output: number[]; pointer: number } = {
   output: [],
   pointer: 0,
 };
-while (true) {
-  if (acc.pointer + 2 > program.length) break;
+while (acc.pointer + 2 <= program.length) {
   const [opcode, operand] = program.slice(acc.pointer, acc.pointer + 2);
   const [a, b, c] = acc.newRegisters;
-  // console.log(acc, getComboOperand(operand, acc.newRegisters));
   if (opcode === 0) {
     // adv
     acc = {
@@ -93,5 +90,4 @@ while (true) {
     };
   }
 }
-// console.log(acc.newRegisters);
 console.log(acc.output.join(","));
